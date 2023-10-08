@@ -11,6 +11,9 @@
 	<form th:action="@{/logout}" method="post">
 		<input type="submit"  value="sign out" />
 	</form>
+	<div class="col-md-4">
+		<p>Welcome <b sec:authentication="name"></b>, your role is <b sec:authentication="principal.authorities"></b> </p>
+	</div>
 	<table class="table table-striped">
 		<tr>
 			<th>Author</th>
@@ -25,12 +28,12 @@
 			<td th:text="${book.isbn}"></td>
 			<td th:text="${book.publicationYear}"></td>
 			<td th:text="${book.category.name}"></td>
-			<td><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger" >Delete</a></td>
-			<td><a th:href="@{/edit/{id}(id=${book.id})}" >Edit</a></td>
+			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger" >Delete</a></td>
+			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${book.id})}" >Edit</a></td>
 		</tr>
 	</table>
 	
-	<a href="/addbook" class="btn btn-success">Add book</a>
+	<a href="/addbook" class="btn btn-success" sec:authorize="hasAuthority('ADMIN')">Add book</a>
 	
 </body>
 </html>
