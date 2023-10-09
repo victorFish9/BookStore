@@ -71,4 +71,9 @@ public class BookController {
 		return "editbook";
 	}
 
+	@RequestMapping(value = "/test")
+	public @ResponseBody String test(){
+		return "Hello user, this is test";
+	}
+
 }
